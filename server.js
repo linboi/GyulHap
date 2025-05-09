@@ -101,6 +101,12 @@ io.on('connection', (socket) => {
             const gameGrid = generateGameGrid();
             lobbies[lobbyCode].gameGrid = gameGrid; // Reset the grid in the lobby
             lobbies[lobbyCode].scores = {}; // Reset scores
+
+            // Initialize scores for all players to 0
+            lobbies[lobbyCode].players.forEach(player => {
+                lobbies[lobbyCode].scores[player.name] = 0;
+            });
+
             lobbies[lobbyCode].foundSets = []; // Reset found sets
 
             // Ensure players remain in the lobby during the game
@@ -108,10 +114,18 @@ io.on('connection', (socket) => {
 
             io.to(lobbyCode).emit('gameGrid', gameGrid); // Broadcast the new grid to all clients
             io.to(lobbyCode).emit('gameStarted'); // Notify clients that the game has started
+            io.to(lobbyCode).emit('updateScores', lobbies[lobbyCode].scores); // Emit initial scores immediately
         } else {
             console.error(`Host ${socket.id} tried to start a game but no lobby was found`); // Debug log
         }
     });
+
+    socket.on('readyToPlay', ({ lobbyCode }) => {
+        //const lobbyCode = Object.keys(lobbies).find(code => lobbies[code].host === socket.id);
+        if (lobbyCode) {
+            io.to(lobbyCode).emit('updateScores', lobbies[lobbyCode].scores); // Notify all players that the host is ready
+        }
+    });;
 
     socket.on('submitSet', ({ lobbyCode, playerName, set }) => {
         if (lobbies[lobbyCode]) {

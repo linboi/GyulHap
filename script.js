@@ -102,11 +102,14 @@ socket.on('gameStarted', () => {
 socket.on('gameGrid', (gameGrid) => {
     console.log('Received game grid:', gameGrid); // Debug log
     renderGrid(gameGrid); // Render the received grid
+    socket.emit('readyToPlay', { lobbyCode: localStorage.getItem('lobbyCode') }); // Notify the server that the player is ready
 });
 
 socket.on('updateScores', (scores) => {
     const scoreContainer = document.getElementById('score-container');
-    scoreContainer.innerHTML = '<h3>Scoreboard:</h3>';
+    scoreContainer.innerHTML = '<h3>Scoreboard:</h3>'; // Update the title to "Scoreboard:"
+    console.log('Scores received:', scores); // Debug log
+    // List all players with their scores
     for (const [player, score] of Object.entries(scores)) {
         const scoreItem = document.createElement('div');
         scoreItem.textContent = `${player}: ${score}`;
@@ -242,16 +245,6 @@ socket.on('noMoreSetsResult', ({ noMoreSets }) => {
     }
 });
 
-// Show all valid sets
-function showValidSets() {
-    const validSetsContainer = document.getElementById('valid-sets-container');
-    const validSetsList = document.getElementById('valid-sets');
-    validSetsList.innerHTML = ''; // Clear previous list
-
-    // Remove client-side logic for finding valid sets
-    validSetsContainer.style.display = 'block'; // Unhide the container
-}
-
 // End the game and show the play again button
 function endGame() {
     gameEnded = true;
@@ -273,7 +266,6 @@ function resetGame() {
 // Event listeners
 document.getElementById('submit-guess').addEventListener('click', validateSet);
 document.getElementById('no-more-sets').addEventListener('click', noMoreSets);
-document.getElementById('show-valid-sets').addEventListener('click', showValidSets);
 document.getElementById('play-again').addEventListener('click', resetGame);
 
 document.getElementById('play-again').addEventListener('click', () => {
