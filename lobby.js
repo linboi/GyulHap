@@ -1,4 +1,4 @@
-const socket = io('wss://gyulhap.onrender.com'); // Use wss:// for secure WebSocket connections
+const socket = io(window.SOCKET_DOMAIN); // Use the global SOCKET_DOMAIN
 
 let playerName = localStorage.getItem('playerName') || `Player${Math.floor(Math.random() * 1000)}`;
 let isHost = false;

@@ -1,3 +1,5 @@
+const socket = io(window.SOCKET_DOMAIN); // Use the global SOCKET_DOMAIN
+
 const grid = document.getElementById('grid');
 const message = document.getElementById('message');
 const foundSetsList = document.getElementById('found-sets');
@@ -5,8 +7,6 @@ let squares = [];
 let selectedSquares = [];
 let foundSets = [];
 let gameEnded = false;
-
-const socket = io('wss://gyulhap.onrender.com'); // Use wss:// for secure WebSocket connections
 
 let playerName = localStorage.getItem('playerName') || `Player${Math.floor(Math.random() * 1000)}`;
 let isHost = false;

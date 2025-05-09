@@ -32,7 +32,8 @@
         <button id="join-lobby">Join</button>
     </div>
     <script src="/socket.io/socket.io.js"></script> <!-- Include socket.io client library -->
-    <script src="lobby.js"></script>
+    <script src="config.js"></script> <!-- Include the config file -->
+    <script src="lobby.js"></script> <!-- Remove type="module" -->
     <script>
         console.log('updatePlayers event received, DOM ready:', document.readyState);
     </script>
