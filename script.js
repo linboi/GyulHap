@@ -6,7 +6,7 @@ let selectedSquares = [];
 let foundSets = [];
 let gameEnded = false;
 
-const socket = io('http://192.168.0.4:3000'); // Keep the socket connection active
+const socket = io('wss://gyulhap.onrender.com'); // Use wss:// for secure WebSocket connections
 
 let playerName = localStorage.getItem('playerName') || `Player${Math.floor(Math.random() * 1000)}`;
 let isHost = false;

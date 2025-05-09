@@ -1,9 +1,14 @@
 const http = require('http');
+const https = require('https');
+const fs = require('fs');
 const express = require('express');
 const { Server } = require('socket.io');
+const cors = require('cors');
 const { v4: uuidv4 } = require('uuid'); // Add this at the top to import UUID library
 
 const app = express();
+app.use(cors());
+const PORT = process.env.PORT || 3000;
 const server = http.createServer(app);
 const io = new Server(server);
 
@@ -195,7 +200,7 @@ io.on('connection', (socket) => {
 });
 
 // Start the server
-const PORT = 3000;
+//const PORT = 3000;
 server.listen(PORT, () => {
-    console.log(`Server is running on http://localhost:${PORT}`);
+    console.log(`Server is running on https://localhost:${PORT}`);
 });
