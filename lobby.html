@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GyulHap Lobby</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="lobby-container">
+        <h1>Waiting Room</h1>
+        <h2>Lobby Code: <span id="current-lobby-code"></span></h2>
+        <h3>Players:</h3>
+        <ul id="player-list"></ul> <!-- Ensure this element exists and is accessible -->
+        <div id="user-info">
+            <h3>Your Name: <span id="user-name"></span></h3>
+        </div>
+        <div id="rules">
+            <h3>Game Rules</h3>
+            <p>GyulHap is a game where players find sets of three squares that satisfy specific rules:</p>
+            <ul>
+                <li>All three squares must have the same property or all different properties for each attribute (background, shape, color).</li>
+                <li>Players take turns finding valid sets.</li>
+                <li>The game ends when no more valid sets are available.</li>
+            </ul>
+        </div>
+        <button id="start-game" style="display: none;">Start Game</button>
+    </div>
+    <div id="create-join-container">
+        <label for="lobby-code">Join Lobby:</label>
+        <input type="text" id="lobby-code" placeholder="Enter lobby code">
+        <button id="join-lobby">Join</button>
+    </div>
+    <script src="/socket.io/socket.io.js"></script> <!-- Include socket.io client library -->
+    <script src="lobby.js"></script>
+    <script>
+        console.log('updatePlayers event received, DOM ready:', document.readyState);
+    </script>
+</body>
+</html>

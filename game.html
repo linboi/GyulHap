@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GyulHap Game</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="game-container">
+        <h1>GyulHap Game</h1>
+        <div id="grid">
+            <!-- The game grid will be dynamically generated here -->
+        </div>
+        <div id="controls">
+            <button id="submit-guess">Submit Guess</button>
+            <button id="no-more-sets">No More Sets</button>
+            <button id="show-valid-sets">Show All Valid Sets</button>
+        </div>
+        <div id="valid-sets-container" style="display: none;">
+            <h3>All Valid Sets</h3>
+            <ul id="valid-sets"></ul>
+        </div>
+        <div id="found-sets-container">
+            <h3>Found Sets</h3>
+            <ul id="found-sets"></ul>
+        </div>
+        <div id="score-container">
+            <h3>Score: <span id="score">0</span></h3>
+        </div>
+        <div id="message"></div>
+        <div id="play-again-container" style="display: none;">
+            <button id="play-again">Play Again</button>
+        </div>
+    </div>
+    <script src="/socket.io/socket.io.js"></script> <!-- Include socket.io client library -->
+    <script src="script.js"></script> <!-- Include the game logic -->
+</body>
+</html>

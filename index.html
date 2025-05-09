@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GyulHap</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="initial-container">
+        <h1>Welcome to GyulHap</h1>
+        <div id="name-container">
+            <label for="player-name">Your Name:</label>
+            <input type="text" id="player-name" placeholder="Enter your name">
+            <button id="set-name">Set Name</button>
+        </div>
+        <div id="create-join-container">
+            <button id="create-lobby">Create Lobby</button>
+            <div>
+                <label for="lobby-code">Join Lobby:</label>
+                <input type="text" id="lobby-code" placeholder="Enter lobby code">
+                <button id="join-lobby">Join</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="lobby-container" style="display: none;">
+        <h1>Waiting Room</h1>
+        <h2>Lobby Code: <span id="current-lobby-code"></span></h2>
+        <h3>Players:</h3>
+        <ul id="player-list"></ul>
+        <div id="user-info">
+            <h3>Your Name: <span id="user-name"></span></h3>
+        </div>
+        <div id="rules">
+            <h3>Game Rules</h3>
+            <p>GyulHap is a game where players find sets of three squares that satisfy specific rules:</p>
+            <ul>
+                <li>All three squares must have the same property or all different properties for each attribute (background, shape, color).</li>
+                <li>Players take turns finding valid sets.</li>
+                <li>The game ends when no more valid sets are available.</li>
+            </ul>
+        </div>
+        <button id="start-game" style="display: none;">Start Game</button>
+    </div>
+
+    <div id="game-container" style="display: none;">
+        <h1>GyulHap Game</h1>
+        <div id="grid">
+            <!-- The game grid will be dynamically generated here -->
+        </div>
+        <div id="controls">
+            <button id="submit-guess">Submit Guess</button>
+            <button id="no-more-sets">No More Sets</button>
+            <button id="show-valid-sets">Show All Valid Sets</button>
+        </div>
+        <div id="valid-sets-container" style="display: none;">
+            <h3>All Valid Sets</h3>
+            <ul id="valid-sets"></ul>
+        </div>
+        <div id="found-sets-container">
+            <h3>Found Sets</h3>
+            <ul id="found-sets"></ul>
+        </div>
+        <div id="score-container">
+            <h3>Score: <span id="score">0</span></h3>
+        </div>
+        <div id="message"></div>
+        <div id="play-again-container" style="display: none;">
+            <button id="play-again">Play Again</button>
+        </div>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="lobby.js"></script>
+    <script>
+        document.getElementById('create-lobby')?.addEventListener('click', () => {
+            const playerName = document.getElementById('player-name').value.trim();
+            if (!playerName) {
+                alert('Please enter your name before creating a lobby.');
+                return;
+            }
+            localStorage.setItem('playerName', playerName); // Store player name in localStorage
+            document.getElementById('initial-container').style.display = 'none';
+            document.getElementById('lobby-container').style.display = 'block';
+            document.getElementById('user-name').textContent = playerName;
+        });
+
+        document.getElementById('join-lobby')?.addEventListener('click', () => {
+            const playerName = document.getElementById('player-name').value.trim();
+            const lobbyCode = document.getElementById('lobby-code').value.trim();
+            if (!playerName || !lobbyCode) {
+                alert('Please enter your name and lobby code.');
+                return;
+            }
+            localStorage.setItem('playerName', playerName); // Store player name in localStorage
+            localStorage.setItem('lobbyCode', lobbyCode); // Store lobby code in localStorage
+            document.getElementById('initial-container').style.display = 'none';
+            document.getElementById('lobby-container').style.display = 'block';
+            document.getElementById('user-name').textContent = playerName;
+            document.getElementById('current-lobby-code').textContent = lobbyCode;
+        });
+    </script>
+</body>
+</html>
