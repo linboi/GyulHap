@@ -182,6 +182,7 @@ io.on('connection', (socket) => {
                 // Award 3 points to the player who declared no more sets
                 lobbies[lobbyCode].scores[playerName] = (lobbies[lobbyCode].scores[playerName] || 0) + 3;
                 io.to(lobbyCode).emit('updateScores', lobbies[lobbyCode].scores); // Broadcast updated scores
+                io.to(lobbyCode).emit('gameEnded', { message: `${playerName} declared no more sets! Game Over!` }); // Notify all players
             } else {
                 // Deduct 1 point for an incorrect declaration
                 lobbies[lobbyCode].scores[playerName] = (lobbies[lobbyCode].scores[playerName] || 0) - 1;

@@ -131,6 +131,12 @@ socket.on('setFeedback', ({ success, message: feedbackMessage }) => {
     message.style.color = success ? 'green' : 'red'; // Use green for success and red for failure
 });
 
+socket.on('gameEnded', ({ message: gameOverMessage }) => {
+    message.textContent = gameOverMessage; // Display the game over message
+    message.style.color = 'blue'; // Use blue color for the game over message
+    endGame(); // End the game
+});
+
 function showLobbyView(lobbyCode) {
     document.getElementById('initial-container').style.display = 'none';
     document.getElementById('lobby-container').style.display = 'block';
