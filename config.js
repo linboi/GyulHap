@@ -1,4 +1,4 @@
-const ENV = 'debug'; // Change to 'release' for production
+const ENV = 'release'; // Change to 'release' for production
 
 const CONFIG = {
     debug: {
